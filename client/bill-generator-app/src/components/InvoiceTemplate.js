@@ -12,14 +12,23 @@ export default function InvoiceTemplate({ invoice }) {
       return;
     }
 
-    // ✅ HARD WAIT for layout + images
-    await new Promise((res) => setTimeout(res, 1200));
+    // ⏳ Wait for images to fully load
+    const images = el.querySelectorAll("img");
+    await Promise.all(
+      Array.from(images).map(
+        (img) =>
+          new Promise((res) => {
+            if (img.complete) res();
+            else img.onload = img.onerror = res;
+          })
+      )
+    );
 
     const canvas = await html2canvas(el, {
       scale: 2,
-      backgroundColor: "#ffffff",
       useCORS: true,
-      logging: false
+      allowTaint: true,
+      backgroundColor: "#ffffff"
     });
 
     const img = canvas.toDataURL("image/png");
@@ -48,8 +57,7 @@ export default function InvoiceTemplate({ invoice }) {
           items={invoice.items || []}
           totals={{
             subtotal: invoice.subtotal || 0,
-            cgst: invoice.cgst || 0,
-            sgst: invoice.sgst || 0,
+            gst: invoice.gst || 0,
             grandTotal: invoice.grandTotal || 0
           }}
           invoiceNo={invoice.invoiceNo}

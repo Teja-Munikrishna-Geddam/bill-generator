@@ -19,18 +19,23 @@ export default function InvoiceLayout({
     return (
         <div className="invoice-page">
 
+
             {/* ===== DEALER HEADER ===== */}
             <div className="dealer-header">
-                <h3>PROFORMA INVOICE</h3>
 
-                <div className="dealer-contacts">
-                    <div>
-                        <p>+91 9082162344</p>
-                        <p>+91 9969406915</p>
-                    </div>
-                    <div>
+                <div className="dealer-contacts" >
+                    <div id="dealer-number-left">
+                        <p><strong>NAGESH RAJBHAR </strong>:- +91 9082162344</p>
                         <p>+91 9930930880</p>
-                        <p>+91 9819577725</p>
+                    </div>
+                    <div id="dealer-number-right">
+                        <img
+                            src="/hanuman_logo.png"
+                            className="dealer-logo2"
+                            alt="Dealer Logo"
+                            crossOrigin="anonymous"
+                        />
+
                     </div>
                 </div>
 
@@ -62,7 +67,9 @@ export default function InvoiceLayout({
                 </div>
             </div>
 
+
             {/* ===== INVOICE META (VIEW ONLY) ===== */}
+            <h3 id="h3">PROFORMA INVOICE</h3>
             {mode === "view" && (
                 <div className="invoice-meta-bar">
                     <p>Invoice No: {invoiceNo}</p>
@@ -143,13 +150,16 @@ export default function InvoiceLayout({
             <table className="invoice-table">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Description</th>
+                        <th>Sl. No.</th>
+                        <th>Description of Items</th>
+                        <th>Model</th>
+                        <th>Unit</th>
                         <th>Qty</th>
                         <th>Rate</th>
-                        <th>Total</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {items.map((item, i) => (
                         <tr key={i}>
@@ -158,13 +168,40 @@ export default function InvoiceLayout({
                             <td>
                                 {isEdit ? (
                                     <input
-                                        value={item.product}
+                                        value={item.description}
+                                        placeholder="Product Description"
                                         onChange={(e) =>
-                                            onUpdateItem(i, "product", e.target.value)
+                                            onUpdateItem(i, "description", e.target.value)
                                         }
                                     />
                                 ) : (
-                                    item.product
+                                    item.description
+                                )}
+                            </td>
+
+                            <td>
+                                {isEdit ? (
+                                    <input
+                                        value={item.model}
+                                        onChange={(e) =>
+                                            onUpdateItem(i, "model", e.target.value)
+                                        }
+                                    />
+                                ) : (
+                                    item.model
+                                )}
+                            </td>
+
+                            <td>
+                                {isEdit ? (
+                                    <input
+                                        value={item.unit}
+                                        onChange={(e) =>
+                                            onUpdateItem(i, "unit", e.target.value)
+                                        }
+                                    />
+                                ) : (
+                                    item.unit
                                 )}
                             </td>
 
@@ -186,36 +223,93 @@ export default function InvoiceLayout({
                                 {isEdit ? (
                                     <input
                                         type="number"
-                                        value={item.price}
+                                        value={item.rate}
                                         onChange={(e) =>
-                                            onUpdateItem(i, "price", +e.target.value)
+                                            onUpdateItem(i, "rate", +e.target.value)
                                         }
                                     />
                                 ) : (
-                                    item.price
+                                    item.rate
                                 )}
                             </td>
 
-                            <td>₹{item.total}</td>
+                            <td>₹{Number(item.amount).toFixed(2)}</td>
+
                         </tr>
+
                     ))}
+                    <tr>
+                        {/* Empty columns */}
+                        <td colSpan={5}></td>
+
+                        {/* Labels */}
+                        <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                            Grand Total
+                        </td>
+                        <td>₹{Number(totals.subtotal || 0).toFixed(2)}</td>
+                    </tr>
+
+                    <tr>
+                        <td colSpan={5}></td>
+                        <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                            GST @18%
+                        </td>
+                        <td>₹{Number(totals.gst || 0).toFixed(2)}</td>
+                    </tr>
+
+                    <tr>
+                        <td colSpan={5}></td>
+                        <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                            Total
+                        </td>
+                        <td>
+                            <b>₹{Number(totals.grandTotal || 0).toFixed(2)}</b>
+                        </td>
+                    </tr>
+
                 </tbody>
+
             </table>
+
 
             {isEdit && (
                 <button className="add-item-btn" onClick={onAddItem}>
                     + Add Item
                 </button>
             )}
-
-            {/* ===== TOTALS ===== */}
-            <div className="totals-box">
-                <p>Net Total: ₹{Number(totals.subtotal || 0).toFixed(2)}</p>
-                <p>CGST @9%: ₹{Number(totals.cgst || 0).toFixed(2)}</p>
-                <p>SGST @9%: ₹{Number(totals.sgst || 0).toFixed(2)}</p>
-                <h3>Grand Total: ₹{Number(totals.grandTotal || 0).toFixed(2)}</h3>
+            <div className="invoice-stamp">
+                <div>
+                    <p style={{ fontSize: "12px", textAlign: "center" }}>
+                        <b>For SNJ Safety Solutions</b>
+                    </p>
+                    <img src="/safety_stamp.png" alt="Stamp" />
+                    <p style={{ fontSize: "12px", textAlign: "center" }}>
+                        <b>Authorised Signatory</b>
+                    </p>
+                </div>
             </div>
 
+
+
+
+
+            <div className="invoice-footer">
+                <div className="footer-note-left">
+                    <ul>
+                        <li>Terms and conditions apply.</li>
+                        <li>18% GST applicable.</li>
+                        <li>Once goods sold won't be returned.</li>
+                        <li>1 year warranty on manufacturing defects.</li>
+                    </ul>
+                </div>
+
+                <div className="footer-note-right">
+                    <p><b>Bank Name:</b> Bank of Baroda</p>
+                    <p><b>Account Name:</b> SNJ SAFETY SOLUTIONS</p>
+                    <p><b>Account Number:</b> 10430200001748</p>
+                    <p><b>IFSC Code:</b> BARB0VASHIX</p>
+                </div>
+            </div>
 
         </div>
     );

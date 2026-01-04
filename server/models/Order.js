@@ -23,10 +23,24 @@ const AddressSchema = new mongoose.Schema(
 ======================= */
 const ItemSchema = new mongoose.Schema(
   {
-    product: String,
-    quantity: Number,
-    price: Number,
-    total: Number
+    description: { type: String },
+    model: { type: String },
+    unit: {
+      type: String,
+      default: "NOS"
+    },
+    quantity: {
+      type: Number,
+      default: 0
+    },
+    rate: {
+      type: Number,
+      default: 0
+    },
+    amount: {
+      type: Number,
+      default: 0
+    }
   },
   { _id: false }
 );
@@ -76,13 +90,7 @@ const OrderSchema = new mongoose.Schema(
       address: String
     },
 
-
-    cgst: {
-      type: Number,
-      default: 0
-    },
-
-    sgst: {
+    gst: {
       type: Number,
       default: 0
     },

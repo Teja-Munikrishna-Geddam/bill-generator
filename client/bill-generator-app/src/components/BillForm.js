@@ -21,35 +21,54 @@ export default function BillForm() {
   const addItem = () => {
     setItems([
       ...items,
-      { product: "", quantity: 1, price: 0, total: 0 }
+      {
+        description: "",
+        model: "",
+        unit: "NOS",
+        quantity: 1,
+        rate: 0,
+        amount: 0
+      }
     ]);
   };
 
   const updateItem = (i, field, value) => {
     const updated = [...items];
-    updated[i][field] = value;
-    updated[i].total =
-      updated[i].quantity * updated[i].price;
+
+    updated[i] = {
+      ...updated[i],
+      [field]: value
+    };
+
+    const qty = Number(updated[i].quantity) || 0;
+    const rate = Number(updated[i].rate) || 0;
+
+    updated[i].amount = Number((qty * rate).toFixed(2));
+
     setItems(updated);
   };
 
+
+
   const [totals, setTotals] = useState({
     subtotal: 0,
-    cgst: 0,
-    sgst: 0,
+    gst: 0,
     grandTotal: 0
   });
 
   useEffect(() => {
-    const subtotal = items.reduce(
-      (sum, item) => sum + item.total,
-      0
-    );
-    const cgst = subtotal * 0.09;
-    const sgst = subtotal * 0.09;
-    const grandTotal = subtotal + cgst + sgst;
+    const subtotal = items.reduce((sum, item) => {
+      return sum + Number(item.amount || 0);
+    }, 0);
 
-    setTotals({ subtotal, cgst, sgst, grandTotal });
+    const gst = subtotal * 0.18;
+    const grandTotal = subtotal + gst;
+
+    setTotals({
+      subtotal: Number(subtotal.toFixed(2)),
+      gst: Number(gst.toFixed(2)),
+      grandTotal: Number(grandTotal.toFixed(2))
+    });
   }, [items]);
 
   const onChangeBillTo = (field, value) =>
@@ -64,8 +83,7 @@ export default function BillForm() {
       shipTo,
       items,
       subtotal: totals.subtotal,
-      cgst: totals.cgst,
-      sgst: totals.sgst,
+      gst: totals.gst,
       grandTotal: totals.grandTotal
     });
 
