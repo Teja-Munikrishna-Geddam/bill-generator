@@ -78,7 +78,7 @@ export default function BillForm() {
     setShipTo({ ...shipTo, [field]: value });
 
   const submitOrder = async () => {
-    await axios.post("http://localhost:5000/api/orders", {
+    await axios.post("https://bill-generator-fhaf.onrender.com/api/Orders", {
       billTo,
       shipTo,
       items,

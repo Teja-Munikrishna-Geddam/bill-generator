@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   const fetchMonthlySales = async () => {
     const res = await axios.get(
-      "http://localhost:5000/api/orders/stats/monthly"
+      "https://bill-generator-fhaf.onrender.com/api/Orders/stats/monthly"
     );
     setSales(res.data);
   };

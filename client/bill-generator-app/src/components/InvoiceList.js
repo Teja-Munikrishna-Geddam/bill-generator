@@ -12,7 +12,7 @@ export default function InvoiceList() {
     }, []);
 
     const fetchOrders = async () => {
-        const res = await axios.get("http://localhost:5000/api/orders");
+        const res = await axios.get("https://bill-generator-fhaf.onrender.com/api/Orders");
         setOrders(res.data);
         console.log("Fetched Orders 👉", res.data);
     };
