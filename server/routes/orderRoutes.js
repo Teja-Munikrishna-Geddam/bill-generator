@@ -34,22 +34,27 @@ router.post("/", async (req, res) => {
 // Get all orders WITH customer details
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find()
-      .populate("customerId"); // 👈 THIS IS REQUIRED
-
+    const orders = await Order.find().sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("❌ GET ORDERS ERROR:", err);
+    res.status(500).json({ error: "Failed to fetch orders" });
   }
 });
+
 
 // 📊 Monthly sales dashboard data
 router.get("/stats/monthly", async (req, res) => {
   try {
     const sales = await Order.aggregate([
       {
+        $match: {
+          grandTotal: { $exists: true }
+        }
+      },
+      {
         $group: {
-          _id: { $month: "$createdAt" },
+          _id: { $month: { $ifNull: ["$createdAt", "$date"] } },
           total: { $sum: "$grandTotal" }
         }
       },
@@ -58,9 +63,11 @@ router.get("/stats/monthly", async (req, res) => {
 
     res.json(sales);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("❌ MONTHLY STATS ERROR:", err);
+    res.status(500).json({ error: "Failed to fetch stats" });
   }
 });
+
 
 
 module.exports = router;
