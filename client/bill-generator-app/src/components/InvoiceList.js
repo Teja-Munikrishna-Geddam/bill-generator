@@ -12,7 +12,7 @@ export default function InvoiceList() {
     }, []);
 
     const fetchOrders = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/Orders`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders`);
         setOrders(res.data);
         console.log("Fetched Orders 👉", res.data);
     };
