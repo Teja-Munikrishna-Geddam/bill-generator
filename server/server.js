@@ -13,8 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/customers", customerRoutes);
-app.use("/api/orders", orderRoutes);
+app.use("/api/Customers", customerRoutes);
+app.use("/api/Orders", orderRoutes);
 
 // DB Connection
 mongoose
