@@ -7,36 +7,43 @@ export default function InvoiceTemplate({ invoice }) {
 
   const downloadPDF = async () => {
     const el = document.getElementById("pdf-capture");
-    if (!el) {
-      alert("Invoice not ready");
-      return;
-    }
-
-    // ⏳ Wait for images to fully load
-    const images = el.querySelectorAll("img");
-    await Promise.all(
-      Array.from(images).map(
-        (img) =>
-          new Promise((res) => {
-            if (img.complete) res();
-            else img.onload = img.onerror = res;
-          })
-      )
-    );
+    if (!el) return;
 
     const canvas = await html2canvas(el, {
       scale: 2,
       useCORS: true,
-      allowTaint: true,
       backgroundColor: "#ffffff"
     });
 
-    const img = canvas.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/png");
+
     const pdf = new jsPDF("p", "mm", "a4");
 
-    pdf.addImage(img, "PNG", 0, 0, 210, 297);
-    pdf.save(`${invoice.invoiceNo}.pdf`);
+    const pageWidth = 210;
+    const pageHeight = 297;
+
+    // Convert canvas pixels to mm
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // First page
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    // Additional pages
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save("invoice.pdf");
   };
+
 
   return (
     <>
