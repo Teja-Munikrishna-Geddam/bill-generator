@@ -33,8 +33,8 @@ export default function InvoiceLayout({
 
                 <div className="dealer-contacts" >
                     <div id="dealer-number-left">
-                        <p><strong>NAGESH </strong>:- +91 9082162344</p>
-                        <p>+91 9930930880</p>
+                        <p><strong>NAGESH </strong>:- +91 9930930880</p>
+                        <p> +91 9082162344</p>
                     </div>
 
                 </div>
@@ -48,17 +48,17 @@ export default function InvoiceLayout({
                 </div>
 
                 <p className="dealer-services">
-                    Fire Alarm System, Fire Hydrent System,
+                    Fire Alarm System, Fire Hydrant System,
                     Fire Fighting Equipment & CCTV
                 </p>
 
                 <p className="dealer-gstin">
-                    <strong>GSTN :</strong> 27ACPRR9449D1ZY
+                    <strong>GSTN :</strong> 27ACPPR9449D1ZY
                 </p>
 
                 <div className="dealer-address">
                     <p>
-                        <strong>Address :</strong> Shop No. 05, House No. 250,
+                        <strong>Address :</strong> Office No. 01, Plot No. 250,
                         Bharat House, Sector-11, Vashi, Navi Mumbai – 400703
                     </p>
                     <p>
@@ -303,11 +303,14 @@ export default function InvoiceLayout({
 
             <div className="invoice-footer">
                 <div className="footer-note-left">
+                    <p><b>Terms & Conditions :</b></p>
                     <ul>
-                        <li>Terms and conditions apply.</li>
+                        <li>100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</li>
                         <li>18% GST applicable.</li>
-                        <li>Once goods sold won't be returned.</li>
+                        <li>ONCE ORDER IS PLACED & PAYMENT IS MADE, ORDER WILL NOT BE MODIFIED / CANCELLED.</li>
                         <li>1 year warranty on manufacturing defects.</li>
+                        <li>TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</li>
+                        <li>DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</li>
                     </ul>
                 </div>
                 {/* footer */}
