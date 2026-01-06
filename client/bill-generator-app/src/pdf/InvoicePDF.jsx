@@ -6,6 +6,10 @@ import {
     StyleSheet
 } from "@react-pdf/renderer";
 import { numberToWords } from "../utils/numberToWords";
+import { Image } from "@react-pdf/renderer";
+import dealerLogo from "../assets/dealer_logo.png";
+import stampImg from "../assets/safety_stamp.png";
+
 
 const styles = StyleSheet.create({
     page: {
@@ -68,6 +72,24 @@ export default function InvoicePDF({ invoice }) {
     return (
         <Document>
             <Page size="A4" style={styles.page} wrap>
+                <Image src={dealerLogo} style={{ width: 120, height: 60 }} />
+                <View style={{ textAlign: "center", marginBottom: 10 }}>
+                    <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+                        SNJ SAFETY SOLUTIONS
+                    </Text>
+                    <Text style={{ fontSize: 9 }}>
+                        Fire Alarm System, Fire Hydrant System,
+                        Fire Fighting Equipment & CCTV
+                    </Text>
+                    <Text style={{ fontSize: 9 }}>
+                        Office No. 01, Plot No. 250, Sector-11, Vashi,
+                        Navi Mumbai – 400703
+                    </Text>
+                    <Text style={{ fontSize: 9 }}>
+                        Contact: +91 9930930880 | GSTN: 27ACPPR9449D1ZY
+                    </Text>
+                </View>
+
 
                 <View style={{ flexDirection: "row", marginBottom: 10 }}>
                     <View style={{ width: "50%" }}>
@@ -144,7 +166,26 @@ export default function InvoicePDF({ invoice }) {
                 {/* SIGNATURE — AUTO MOVES TO NEXT PAGE */}
                 <View style={styles.signature} minPresenceAhead={150}>
                     <Text>For SNJ Safety Solutions</Text>
+                    <Image src={stampImg} style={{ width: 80, marginTop: 10 }} />
                     <Text>Authorised Signatory</Text>
+                </View>
+                <View minPresenceAhead={120} style={{ marginTop: 20 }}>
+                    <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
+                    <Text>Bank Name: Bank of Baroda</Text>
+                    <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
+                    <Text>Account No: 10430200001748</Text>
+                    <Text>IFSC: BARB0VASHIX</Text>
+                </View>
+
+                <View style={{ marginTop: 10 }}>
+                    <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
+                    <Text>1. 100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</Text>
+                    <Text>2. 18% GST APPLICABLE.</Text>
+                    <Text>3. ONCE ORDER IS PLACED & PAYMENT IS MADE, ORDER WILL NOT BE MODIFIED / CANCELLED.</Text>
+                    <Text>4. 1 YEAR WARRANTY ON MANUFACTURING DEFECTS.</Text>
+                    <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
+                    <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</Text>
+
                 </View>
 
             </Page>
