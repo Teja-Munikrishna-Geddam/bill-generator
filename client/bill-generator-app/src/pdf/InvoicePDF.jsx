@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
         fontSize: 9
     },
     dealerLogo: {
-        height: 80,
-        width: 120,
         marginBottom: 6
     }
 });
@@ -74,7 +72,7 @@ export default function InvoicePDF({ invoice }) {
         <Document>
             <Page size="A4" style={styles.page} wrap>
                 <View style={{ alignItems: "center", marginBottom: 8 }}>
-                    <Image src={dealerLogo} style={{ width: 180, height: 120 }} />
+                    <Image src={dealerLogo} style={{ width: 140, height: 80 }} />
                 </View>
 
                 <View style={{ textAlign: "center", marginBottom: 10 }}>
@@ -88,7 +86,9 @@ export default function InvoicePDF({ invoice }) {
                     <Text style={{ fontSize: 9 }}>
                         GSTN: 27ACPPR9449D1ZY
                     </Text>
-                    <Text style={{ fontSize: 9 , backgroundColor : '#003399' }}>
+                </View>
+                <View style={{ marginBottom: 10 , backgroundColor: '#003399' , padding: 5,     color: 'white' , fontWeight: 'bold'}}>
+                    <Text style={{ fontSize: 9}}>
                         Office No. 01, Plot No. 250, Sector-11, Vashi,
                         Navi Mumbai – 400703
                     </Text>
@@ -98,7 +98,6 @@ export default function InvoicePDF({ invoice }) {
                         Email:snj.safetysolutions18@gmail.com
                     </Text>
                 </View>
-
 
                 <View style={{ flexDirection: "row", marginBottom: 10 }}>
                     <View style={{ width: "50%" }}>
@@ -119,9 +118,6 @@ export default function InvoicePDF({ invoice }) {
 
                 {/* TITLE */}
                 <View style={styles.header}>
-                    <Text style={styles.subtitle}>
-                        Fire Alarm System, Fire Hydrant System, Fire Fighting Equipment & CCTV
-                    </Text>
                     <Text style={styles.title}>
                         {invoice.invoiceType?.toUpperCase() || "INVOICE"}
                     </Text>
@@ -160,16 +156,16 @@ export default function InvoicePDF({ invoice }) {
                 ))}
 
                 {/* TOTALS */}
-                <View style={{ marginTop: 10 }}>
-                    <Text>Subtotal : ₹{invoice.subtotal.toFixed(2)}</Text>
-                    <Text>GST (18%) : ₹{invoice.gst.toFixed(2)}</Text>
-                    <Text>Grand Total : ₹{invoice.grandTotal.toFixed(2)}</Text>
+                <View style={{ marginTop: 10 , alignItems: "flex-end" }}>
+                    <Text><b>Subtotal :</b> ₹{invoice.subtotal.toFixed(2)}</Text>
+                    <Text><b>GST (18%) :</b> ₹{invoice.gst.toFixed(2)}</Text>
+                    <Text><b>Grand Total :</b> ₹{invoice.grandTotal.toFixed(2)}</Text>
                 </View>
 
                 {/* AMOUNT IN WORDS */}
                 <View style={styles.amountWords}>
                     <Text>
-                        Amount in Words : {numberToWords(invoice.grandTotal)}
+                        <b>Amount in Words :</b> {numberToWords(invoice.grandTotal)}
                     </Text>
                 </View>
 
@@ -180,7 +176,7 @@ export default function InvoicePDF({ invoice }) {
                     <Text>Authorised Signatory</Text>
                 </View>
 
-                <View style={{ marginTop: 10 , lineHeight: 1.2}}>
+                <View style={{ marginTop: 10, lineHeight: 1.2 }}>
                     <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
                     <Text>1. 100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</Text>
                     <Text>2. 18% GST APPLICABLE.</Text>
@@ -189,7 +185,7 @@ export default function InvoicePDF({ invoice }) {
                     <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
                     <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</Text>
                 </View>
-                <View minPresenceAhead={120} style={{ marginTop: 20 , border: "1 solid #000", paddingTop: 5 }}>
+                <View minPresenceAhead={120} style={{ marginTop: 20, border: "1 solid #000", paddingTop: 5 }}>
                     <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
                     <Text>Bank Name: Bank of Baroda</Text>
                     <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
