@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
 
     signature: {
         marginTop: 40,
-        alignItems: "flex-end"
+        alignItems: "flex-end",
+        fontSize: 10
     }
 });
 
