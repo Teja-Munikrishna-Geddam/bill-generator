@@ -117,7 +117,9 @@
 
 
 .invoice-table th:not(:nth-child(2)),
-.invoice-table td:not(:nth-child(2)) {
+.invoice-table td:not(:nth-child(2)),
+.invoice-table th:not(:nth-child(3)),
+.invoice-table td:not(:nth-child(3)) {
   white-space: nowrap;
 }
 
@@ -138,6 +140,10 @@
 .invoice-table td:nth-child(3) {
   width: 90px;
   /* Model */
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  vertical-align: center;
 }
 
 .invoice-table th:nth-child(4),
