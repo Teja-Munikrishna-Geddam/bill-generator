@@ -1,6 +1,6 @@
 /* ===== A4 PAGE SIZE ===== */
 .invoice-page {
-  width: 980px;
+  width: 794px;
   min-height: auto;
   margin: 20px auto;
   padding: 20px;
@@ -84,7 +84,7 @@
 /* ===== COLUMN WIDTH CONTROL ===== */
 .invoice-table th:nth-child(1),
 .invoice-table td:nth-child(1) {
-  width: 40px;
+  width: 20px;
   /* Sl. No */
 }
 
@@ -152,7 +152,7 @@
 
 .invoice-table th:nth-child(5),
 .invoice-table td:nth-child(5) {
-  width: 50px;
+  width: 20px;
   /* Qty */
 }
 
