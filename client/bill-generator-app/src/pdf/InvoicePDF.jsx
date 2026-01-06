@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
         fontSize: 9
     },
     dealerLogo: {
-        height: 120,
-        width: 180,
+        height: 80,
+        width: 120,
         marginBottom: 6
     }
 });
@@ -88,7 +88,7 @@ export default function InvoicePDF({ invoice }) {
                     <Text style={{ fontSize: 9 }}>
                         GSTN: 27ACPPR9449D1ZY
                     </Text>
-                    <Text style={{ fontSize: 9 }}>
+                    <Text style={{ fontSize: 9 , backgroundColor : '#003399' }}>
                         Office No. 01, Plot No. 250, Sector-11, Vashi,
                         Navi Mumbai – 400703
                     </Text>
@@ -161,6 +161,8 @@ export default function InvoicePDF({ invoice }) {
 
                 {/* TOTALS */}
                 <View style={{ marginTop: 10 }}>
+                    <Text>Subtotal : ₹{invoice.subtotal.toFixed(2)}</Text>
+                    <Text>GST (18%) : ₹{invoice.gst.toFixed(2)}</Text>
                     <Text>Grand Total : ₹{invoice.grandTotal.toFixed(2)}</Text>
                 </View>
 
@@ -178,7 +180,7 @@ export default function InvoicePDF({ invoice }) {
                     <Text>Authorised Signatory</Text>
                 </View>
 
-                <View style={{ marginTop: 10 }}>
+                <View style={{ marginTop: 10 , lineHeight: 1.2}}>
                     <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
                     <Text>1. 100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</Text>
                     <Text>2. 18% GST APPLICABLE.</Text>
@@ -187,7 +189,7 @@ export default function InvoicePDF({ invoice }) {
                     <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
                     <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</Text>
                 </View>
-                <View minPresenceAhead={120} style={{ marginTop: 20 }}>
+                <View minPresenceAhead={120} style={{ marginTop: 20 , border: "1 solid #000", paddingTop: 5 }}>
                     <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
                     <Text>Bank Name: Bank of Baroda</Text>
                     <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
