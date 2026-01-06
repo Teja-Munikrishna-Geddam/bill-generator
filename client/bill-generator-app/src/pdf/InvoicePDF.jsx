@@ -49,7 +49,19 @@ const styles = StyleSheet.create({
         marginTop: 40,
         alignItems: "flex-end",
         fontSize: 10
+    },
+    header: {
+        textAlign: "center",
+        marginBottom: 10
+    },
+    company: {
+        fontSize: 12,
+        fontWeight: "bold"
+    },
+    subtitle: {
+        fontSize: 9
     }
+
 });
 
 export default function InvoicePDF({ invoice }) {
@@ -57,10 +69,41 @@ export default function InvoicePDF({ invoice }) {
         <Document>
             <Page size="A4" style={styles.page} wrap>
 
+                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                    <View style={{ width: "50%" }}>
+                        <Text>Bill To:</Text>
+                        <Text>{invoice.billTo.name}</Text>
+                        <Text>{invoice.billTo.address}</Text>
+                        <Text>GSTIN: {invoice.billTo.gstin}</Text>
+                    </View>
+
+                    <View style={{ width: "50%" }}>
+                        <Text>Ship To:</Text>
+                        <Text>{invoice.shipTo.name}</Text>
+                        <Text>{invoice.shipTo.address}</Text>
+                    </View>
+                </View>
+
+
                 {/* TITLE */}
                 <Text style={styles.title}>
                     {invoice.invoiceType?.toUpperCase() || "INVOICE"}
                 </Text>
+                <View style={styles.header}>
+                    <Text style={styles.company}>SNJ SAFETY SOLUTIONS</Text>
+                    <Text style={styles.subtitle}>
+                        Fire Alarm, Fire Fighting & CCTV
+                    </Text>
+                    <Text style={styles.title}>
+                        {invoice.invoiceType.toUpperCase()}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 10 }}>
+                    <Text>Invoice No: {invoice.invoiceNo}</Text>
+                    <Text>Date: {invoice.invoiceDate}</Text>
+                </View>
+
+
 
                 {/* TABLE HEADER — AUTO REPEATS */}
                 <View style={styles.headerRow} fixed>
