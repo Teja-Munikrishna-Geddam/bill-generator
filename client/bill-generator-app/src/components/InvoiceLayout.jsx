@@ -1,7 +1,12 @@
 import "../invoice.css";
+import { INVOICE_TYPES } from "./invoiceTypes";
+import { numberToWords } from "../utils/numberToWords";
+
+
 
 export default function InvoiceLayout({
     mode = "view",
+    invoiceType = INVOICE_TYPES.PROFORMA,
     billTo = {},
     shipTo = {},
     items = [],
@@ -14,6 +19,9 @@ export default function InvoiceLayout({
     onUpdateItem
 }) {
 
+    const hideBankDetails =
+        invoiceType === INVOICE_TYPES.PURCHASE;
+
     const isEdit = mode === "edit";
 
     return (
@@ -25,18 +33,10 @@ export default function InvoiceLayout({
 
                 <div className="dealer-contacts" >
                     <div id="dealer-number-left">
-                        <p><strong>NAGESH RAJBHAR </strong>:- +91 9082162344</p>
+                        <p><strong>NAGESH </strong>:- +91 9082162344</p>
                         <p>+91 9930930880</p>
                     </div>
-                    <div id="dealer-number-right">
-                        <img
-                            src="/hanuman_logo.png"
-                            className="dealer-logo2"
-                            alt="Dealer Logo"
-                            crossOrigin="anonymous"
-                        />
 
-                    </div>
                 </div>
 
                 <div className="dealer-center">
@@ -69,7 +69,7 @@ export default function InvoiceLayout({
 
 
             {/* ===== INVOICE META (VIEW ONLY) ===== */}
-            <h3 id="h3">PROFORMA INVOICE</h3>
+            <h3 id="h3">{invoiceType.toUpperCase()}</h3>
             {mode === "view" && (
                 <div className="invoice-meta-bar">
                     <p>Invoice No: {invoiceNo}</p>
@@ -240,7 +240,7 @@ export default function InvoiceLayout({
                     ))}
                     <tr>
                         {/* Empty columns */}
-                        <td colSpan={5}></td>
+                        <td colSpan={5} rowSpan={1}></td>
 
                         {/* Labels */}
                         <td style={{ textAlign: "right", fontWeight: "bold" }}>
@@ -270,6 +270,14 @@ export default function InvoiceLayout({
                 </tbody>
 
             </table>
+            {/* ===== AMOUNT IN WORDS ===== */}
+            <div className="amount-in-words">
+                <p>
+                    <b>Amount in Words :</b>{" "}
+                    {numberToWords(Math.round(totals.grandTotal || 0))}
+                </p>
+            </div>
+
 
 
             {isEdit && (
@@ -302,13 +310,15 @@ export default function InvoiceLayout({
                         <li>1 year warranty on manufacturing defects.</li>
                     </ul>
                 </div>
-
-                <div className="footer-note-right">
-                    <p><b>Bank Name:</b> Bank of Baroda</p>
-                    <p><b>Account Name:</b> SNJ SAFETY SOLUTIONS</p>
-                    <p><b>Account Number:</b> 10430200001748</p>
-                    <p><b>IFSC Code:</b> BARB0VASHIX</p>
-                </div>
+                {/* footer */}
+                {!hideBankDetails && (
+                    <div className="footer-note-right">
+                        <p><b>Bank Name:</b> Bank of Baroda</p>
+                        <p><b>Account Name:</b> SNJ SAFETY SOLUTIONS</p>
+                        <p><b>Account Number:</b> 10430200001748</p>
+                        <p><b>IFSC Code:</b> BARB0VASHIX</p>
+                    </div>
+                )}
             </div>
 
         </div>

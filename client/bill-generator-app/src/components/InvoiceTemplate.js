@@ -52,6 +52,7 @@ export default function InvoiceTemplate({ invoice }) {
       >
         <InvoiceLayout
           mode="view"
+          invoiceType={invoice.invoiceType || "Proforma Invoice"}
           billTo={invoice.billTo || {}}
           shipTo={invoice.shipTo || {}}
           items={invoice.items || []}

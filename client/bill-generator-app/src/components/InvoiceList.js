@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InvoiceTemplate from "./InvoiceTemplate";
+import { INVOICE_TYPES } from "./invoiceTypes";
+
+
 
 export default function InvoiceList() {
     const [orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [search, setSearch] = useState("");
+    const [invoiceType, setInvoiceType] = useState(INVOICE_TYPES.PROFORMA);
+
 
     useEffect(() => {
         fetchOrders();
@@ -111,8 +116,17 @@ export default function InvoiceList() {
             {/* ================= VIEW / PDF ================= */}
             {selectedOrder && (
                 <div id="invoice-preview">
+                    <select
+                        value={invoiceType}
+                        onChange={(e) => setInvoiceType(e.target.value)}
+                        style={{ marginBottom: "12px", padding: "6px" }}
+                    >
+                        {Object.values(INVOICE_TYPES).map(type => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </select>
                     <InvoiceTemplate
-                        invoice={selectedOrder}
+                        invoice={{ ...selectedOrder, invoiceType }}
                         customer={selectedOrder.customerId}
                     />
                 </div>
