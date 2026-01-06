@@ -76,7 +76,7 @@
   border-collapse: collapse;
   margin-top: 20px;
   table-layout: fixed;
-
+  font-size: 8px;
 }
 
 
@@ -90,7 +90,7 @@
 
 .invoice-table th:nth-child(2),
 .invoice-table td:nth-child(2) {
-  width: 240px;
+  width: 220px;
   /* Description */
   text-align: left;
   white-space: normal;
@@ -136,12 +136,12 @@
 
 .invoice-table th:nth-child(3),
 .invoice-table td:nth-child(3) {
-  width: 90px;
+  width: 100px;
   /* Model */
+  text-align: left;
   white-space: normal;
   word-break: break-word;
-  text-align: center;
-  vertical-align: center;
+  overflow-wrap: anywhere;
 }
 
 .invoice-table th:nth-child(4),
