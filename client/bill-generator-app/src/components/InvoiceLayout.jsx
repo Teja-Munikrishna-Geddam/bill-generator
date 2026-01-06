@@ -287,15 +287,21 @@ export default function InvoiceLayout({
                     + Add Item
                 </button>
             )}
-            <div className="invoice-stamp">
-                <div>
-                    <p style={{ fontSize: "12px", textAlign: "center" }}>
-                        <b>For SNJ Safety Solutions</b>
-                    </p>
-                    <img src="/safety_stamp.png" alt="Stamp" />
-                    <p style={{ fontSize: "12px", textAlign: "center" }}>
-                        <b>Authorised Signatory</b>
-                    </p>
+            <div className="signature-page-block">
+                <div className="invoice-stamp">
+                    <div>
+                        <p style={{ fontSize: "12px", textAlign: "center" }}>
+                            <b>For SNJ Safety Solutions</b>
+                        </p>
+                        <img src="/safety_stamp.png" alt="Stamp" />
+                        <p style={{ fontSize: "12px", textAlign: "center" }}>
+                            <b>Authorised Signatory</b>
+                        </p>
+                    </div>
+                </div>
+
+                <div className="invoice-footer">
+                    {/* existing footer code */}
                 </div>
             </div>
 

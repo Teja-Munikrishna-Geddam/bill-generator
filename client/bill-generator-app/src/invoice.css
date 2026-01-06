@@ -1,9 +1,9 @@
 /* ===== A4 PAGE SIZE ===== */
 .invoice-page {
   width: 794px;
-  min-height: auto;
   margin: 20px auto;
   padding: 20px;
+  min-height: 983px;
   box-sizing: border-box;
 
   background: white;
@@ -117,7 +117,7 @@
 
 
 .invoice-table th:not(:nth-child(2)),
-.invoice-table td:not(:nth-child(2)){
+.invoice-table td:not(:nth-child(2)) {
   white-space: nowrap;
 }
 
@@ -309,6 +309,14 @@
   }
 }
 
+.signature-page-block {
+  margin-top: 40px;
+  min-height: 300px;
+  /* 🔥 KEY */
+  page-break-before: always;
+  /* works only in print, but still needed */
+}
+
 .amount-in-words {
   margin-top: 10px;
   padding: 6px;
@@ -332,7 +340,7 @@
 
 .footer-note-left {
   position: relative;
-  top: -150px;
+  top: -250px;
   left: 0px;
   line-height: 1.4;
   width: 450px;
@@ -352,7 +360,7 @@
 .footer-note-right {
   position: relative;
   background-color: #FAF9F6;
-  top: -20px;
+  top: -120px;
   left: 0px;
   text-align: left;
   border: 1px solid #000;
@@ -366,7 +374,7 @@
 /* Signature */
 
 .invoice-stamp {
-  margin-top: -40px;
+  margin-top: -20px;
   display: flex;
   justify-content: flex-end;
   /* right aligned like real invoice */
@@ -384,8 +392,8 @@
 }
 
 .invoice-stamp img {
-  width: 100px;
+  width: 70px;
   height: auto;
   opacity: 0.9;
-  margin-left: 20px;
+  margin-left: 40px;
 }
