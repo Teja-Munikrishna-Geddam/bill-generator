@@ -90,7 +90,7 @@
 
 .invoice-table th:nth-child(2),
 .invoice-table td:nth-child(2) {
-  width: 280px;
+  width: 240px;
   /* Description */
   text-align: left;
   white-space: normal;
@@ -136,7 +136,7 @@
 
 .invoice-table th:nth-child(3),
 .invoice-table td:nth-child(3) {
-  width: 70px;
+  width: 90px;
   /* Model */
 }
 
