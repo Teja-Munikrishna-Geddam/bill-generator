@@ -9,6 +9,8 @@ import { numberToWords } from "../utils/numberToWords";
 import { Image } from "@react-pdf/renderer";
 import dealerLogo from "../assets/dealer_logo.png";
 import stampImg from "../assets/safety_stamp.png";
+import { INVOICE_TYPES } from "../components/invoiceTypes";
+
 
 
 const styles = StyleSheet.create({
@@ -87,8 +89,8 @@ export default function InvoicePDF({ invoice }) {
                         GSTN: 27ACPPR9449D1ZY
                     </Text>
                 </View>
-                <View style={{ marginBottom: 10 , backgroundColor: '#003399' , padding: 5,     color: 'white' , fontWeight: 'bold'}}>
-                    <Text style={{ fontSize: 9}}>
+                <View style={{ marginBottom: 10, backgroundColor: '#003399', padding: 5, color: 'white', fontWeight: 'bold' }}>
+                    <Text style={{ fontSize: 9 }}>
                         Office No. 01, Plot No. 250, Sector-11, Vashi,
                         Navi Mumbai – 400703
                     </Text>
@@ -156,7 +158,7 @@ export default function InvoicePDF({ invoice }) {
                 ))}
 
                 {/* TOTALS */}
-                <View style={{ marginTop: 10 , alignItems: "flex-end" }}>
+                <View style={{ marginTop: 10, alignItems: "flex-end" }}>
                     <Text><b>Subtotal :</b> ₹{invoice.subtotal.toFixed(2)}</Text>
                     <Text><b>GST (18%) :</b> ₹{invoice.gst.toFixed(2)}</Text>
                     <Text><b>Grand Total :</b> ₹{invoice.grandTotal.toFixed(2)}</Text>
@@ -185,13 +187,19 @@ export default function InvoicePDF({ invoice }) {
                     <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
                     <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</Text>
                 </View>
-                <View minPresenceAhead={120} style={{ marginTop: 20, border: "1 solid #000", paddingTop: 5 }}>
-                    <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
-                    <Text>Bank Name: Bank of Baroda</Text>
-                    <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
-                    <Text>Account No: 10430200001748</Text>
-                    <Text>IFSC: BARB0VASHIX</Text>
-                </View>
+                {invoice.invoiceType !== INVOICE_TYPES.PURCHASE && (
+                    <View
+                        minPresenceAhead={120}
+                        style={{ marginTop: 20, border: "1 solid #000", paddingTop: 5 }}
+                    >
+                        <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
+                        <Text>Bank Name: Bank of Baroda</Text>
+                        <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
+                        <Text>Account No: 10430200001748</Text>
+                        <Text>IFSC: BARB0VASHIX</Text>
+                    </View>
+                )}
+
 
             </Page>
         </Document>
