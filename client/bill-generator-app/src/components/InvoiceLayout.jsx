@@ -149,14 +149,14 @@ export default function InvoiceLayout({
             {/* ===== ITEMS ===== */}
             <table className="invoice-table">
                 <thead>
-                    <tr>
-                        <th>Sl. No.</th>
-                        <th>Description of Items</th>
-                        <th>Model</th>
-                        <th>Unit</th>
-                        <th>Qty</th>
-                        <th>Rate</th>
-                        <th>Amount</th>
+                    <tr className="table-row">
+                        <th >Sl. No.</th>
+                        <th >Description of Items</th>
+                        <th >Model</th>
+                        <th >Unit</th>
+                        <th >Qty</th>
+                        <th >Rate</th>
+                        <th >Amount</th>
                     </tr>
                 </thead>
 
@@ -167,13 +167,15 @@ export default function InvoiceLayout({
 
                             <td>
                                 {isEdit ? (
-                                    <input
+                                    <textarea
+                                        className="desc-textarea"
                                         value={item.description}
                                         placeholder="Product Description"
                                         onChange={(e) =>
                                             onUpdateItem(i, "description", e.target.value)
                                         }
                                     />
+
                                 ) : (
                                     item.description
                                 )}
@@ -304,11 +306,11 @@ export default function InvoiceLayout({
             <div className="invoice-footer">
                 <div className="footer-note-left">
                     <p><b>Terms & Conditions :</b></p>
-                    <ul>
+                    <ul className="terms">
                         <li>100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</li>
-                        <li>18% GST applicable.</li>
+                        <li>18% GST APPLICABLE.</li>
                         <li>ONCE ORDER IS PLACED & PAYMENT IS MADE, ORDER WILL NOT BE MODIFIED / CANCELLED.</li>
-                        <li>1 year warranty on manufacturing defects.</li>
+                        <li>1 YEAR WARRANTY ON MANUFACTURING DEFECTS.</li>
                         <li>TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</li>
                         <li>DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</li>
                     </ul>
