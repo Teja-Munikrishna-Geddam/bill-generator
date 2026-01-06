@@ -59,19 +59,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginBottom: 10
     },
-    company: {
-        fontSize: 12,
-        fontWeight: "bold"
-    },
     subtitle: {
         fontSize: 9
     },
     dealerLogo: {
-        position: "relative",
-        top: -10,
         height: 120,
         width: 180,
-        margin: 0
+        marginBottom: 6
     }
 });
 
@@ -79,7 +73,10 @@ export default function InvoicePDF({ invoice }) {
     return (
         <Document>
             <Page size="A4" style={styles.page} wrap>
-                <Image src={dealerLogo} style={styles.dealerLogo} />
+                <View style={{ alignItems: "center", marginBottom: 8 }}>
+                    <Image src={dealerLogo} style={{ width: 180, height: 120 }} />
+                </View>
+
                 <View style={{ textAlign: "center", marginBottom: 10 }}>
                     <Text style={{ fontSize: 12, fontWeight: "bold" }}>
                         SNJ SAFETY SOLUTIONS
@@ -97,7 +94,7 @@ export default function InvoicePDF({ invoice }) {
                     </Text>
                     <Text style={{ fontSize: 9 }}>
                         Contact Person: Nagesh
-                        Contact NO: +91 9930930880/+91 9082162344 
+                        Contact NO: +91 9930930880/+91 9082162344
                         Email:snj.safetysolutions18@gmail.com
                     </Text>
                 </View>
@@ -122,9 +119,8 @@ export default function InvoicePDF({ invoice }) {
 
                 {/* TITLE */}
                 <View style={styles.header}>
-                    <Text style={styles.company}>SNJ SAFETY SOLUTIONS</Text>
                     <Text style={styles.subtitle}>
-                        Fire Alarm, Fire Fighting & CCTV
+                        Fire Alarm System, Fire Hydrant System, Fire Fighting Equipment & CCTV
                     </Text>
                     <Text style={styles.title}>
                         {invoice.invoiceType?.toUpperCase() || "INVOICE"}
