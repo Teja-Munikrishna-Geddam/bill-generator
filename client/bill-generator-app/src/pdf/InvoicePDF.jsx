@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
 
     cellSl: { width: "5%", textAlign: "center" },
     cellDesc: { width: "40%" },
-    cell: { width: "11%", textAlign: "center" },
+    cellModel: { width: "20%" },
+    cell: { width: "10%", textAlign: "center" },
     cellAmount: { width: "12%", textAlign: "right" },
 
     amountWords: {
@@ -64,29 +65,40 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 9
+    },
+    dealerLogo: {
+        position: "relative",
+        top: -10,
+        height: 120,
+        width: 180,
+        margin: 0
     }
-
 });
 
 export default function InvoicePDF({ invoice }) {
     return (
         <Document>
             <Page size="A4" style={styles.page} wrap>
-                <Image src={dealerLogo} style={{ width: 120, height: 60 }} />
+                <Image src={dealerLogo} style={styles.dealerLogo} />
                 <View style={{ textAlign: "center", marginBottom: 10 }}>
                     <Text style={{ fontSize: 12, fontWeight: "bold" }}>
                         SNJ SAFETY SOLUTIONS
                     </Text>
-                    <Text style={{ fontSize: 9 }}>
+                    <Text style={{ fontSize: 9, color: 'red' }}>
                         Fire Alarm System, Fire Hydrant System,
                         Fire Fighting Equipment & CCTV
+                    </Text >
+                    <Text style={{ fontSize: 9 }}>
+                        GSTN: 27ACPPR9449D1ZY
                     </Text>
                     <Text style={{ fontSize: 9 }}>
                         Office No. 01, Plot No. 250, Sector-11, Vashi,
                         Navi Mumbai – 400703
                     </Text>
                     <Text style={{ fontSize: 9 }}>
-                        Contact: +91 9930930880 | GSTN: 27ACPPR9449D1ZY
+                        Contact Person: Nagesh
+                        Contact NO: +91 9930930880/+91 9082162344 
+                        Email:snj.safetysolutions18@gmail.com
                     </Text>
                 </View>
 
@@ -97,6 +109,7 @@ export default function InvoicePDF({ invoice }) {
                         <Text>{invoice.billTo.name}</Text>
                         <Text>{invoice.billTo.address}</Text>
                         <Text>GSTIN: {invoice.billTo.gstin}</Text>
+                        <Text>Contact: {invoice.billTo.contact}</Text>
                     </View>
 
                     <View style={{ width: "50%" }}>
@@ -108,16 +121,13 @@ export default function InvoicePDF({ invoice }) {
 
 
                 {/* TITLE */}
-                <Text style={styles.title}>
-                    {invoice.invoiceType?.toUpperCase() || "INVOICE"}
-                </Text>
                 <View style={styles.header}>
                     <Text style={styles.company}>SNJ SAFETY SOLUTIONS</Text>
                     <Text style={styles.subtitle}>
                         Fire Alarm, Fire Fighting & CCTV
                     </Text>
                     <Text style={styles.title}>
-                        {invoice.invoiceType.toUpperCase()}
+                        {invoice.invoiceType?.toUpperCase() || "INVOICE"}
                     </Text>
                 </View>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 10 }}>
@@ -131,6 +141,7 @@ export default function InvoicePDF({ invoice }) {
                 <View style={styles.headerRow} fixed>
                     <Text style={styles.cellSl}>Sl</Text>
                     <Text style={styles.cellDesc}>Description</Text>
+                    <Text style={styles.cellModel}>Model</Text>
                     <Text style={styles.cell}>Unit</Text>
                     <Text style={styles.cell}>Qty</Text>
                     <Text style={styles.cell}>Rate</Text>
@@ -142,6 +153,7 @@ export default function InvoicePDF({ invoice }) {
                     <View key={i} style={styles.row} wrap={false}>
                         <Text style={styles.cellSl}>{i + 1}</Text>
                         <Text style={styles.cellDesc}>{item.description}</Text>
+                        <Text style={styles.cellModel}>{item.model}</Text>
                         <Text style={styles.cell}>{item.unit}</Text>
                         <Text style={styles.cell}>{item.quantity}</Text>
                         <Text style={styles.cell}>{item.rate}</Text>
@@ -169,13 +181,6 @@ export default function InvoicePDF({ invoice }) {
                     <Image src={stampImg} style={{ width: 80, marginTop: 10 }} />
                     <Text>Authorised Signatory</Text>
                 </View>
-                <View minPresenceAhead={120} style={{ marginTop: 20 }}>
-                    <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
-                    <Text>Bank Name: Bank of Baroda</Text>
-                    <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
-                    <Text>Account No: 10430200001748</Text>
-                    <Text>IFSC: BARB0VASHIX</Text>
-                </View>
 
                 <View style={{ marginTop: 10 }}>
                     <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
@@ -185,7 +190,13 @@ export default function InvoicePDF({ invoice }) {
                     <Text>4. 1 YEAR WARRANTY ON MANUFACTURING DEFECTS.</Text>
                     <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
                     <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</Text>
-
+                </View>
+                <View minPresenceAhead={120} style={{ marginTop: 20 }}>
+                    <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
+                    <Text>Bank Name: Bank of Baroda</Text>
+                    <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
+                    <Text>Account No: 10430200001748</Text>
+                    <Text>IFSC: BARB0VASHIX</Text>
                 </View>
 
             </Page>
