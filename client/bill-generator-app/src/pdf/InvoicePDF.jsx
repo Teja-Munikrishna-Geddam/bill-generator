@@ -21,8 +21,7 @@ const COLS = {
     amount: "15%"
 };
 
-const isPurchaseOrder =
-    invoice.invoiceType === INVOICE_TYPES.PURCHASE;
+
 
 
 const styles = StyleSheet.create({
@@ -220,6 +219,9 @@ const styles = StyleSheet.create({
 
 
 export default function InvoicePDF({ invoice }) {
+    const isPurchaseOrder =
+        invoice.invoiceType === INVOICE_TYPES.PURCHASE;
+        
     const shouldRepeatHeader = invoice.items?.length >= 8;
     return (
         <Document>
