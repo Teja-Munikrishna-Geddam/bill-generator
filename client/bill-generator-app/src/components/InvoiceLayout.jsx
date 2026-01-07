@@ -1,6 +1,8 @@
 import "../invoice.css";
 import { INVOICE_TYPES } from "./invoiceTypes";
 import { numberToWords } from "../utils/numberToWords";
+import dealerLogo from "../assets/dealer_logo.png";
+import stampImg from "../assets/safety_stamp.png";
 
 
 
@@ -41,7 +43,7 @@ export default function InvoiceLayout({
 
                 <div className="dealer-center">
                     <img
-                        src="client\bill-generator-app\src\assets\dealer_logo.png"
+                        src={dealerLogo}
                         alt="Dealer Logo"
                         className="dealer-logo"
                     />
@@ -293,7 +295,7 @@ export default function InvoiceLayout({
                         <p style={{ fontSize: "12px", textAlign: "center" }}>
                             <b>For SNJ Safety Solutions</b>
                         </p>
-                        <img src="client\bill-generator-app\src\assets\safety_stamp.png" alt="Stamp" />
+                        <img src={stampImg} alt="Stamp" />
                         <p style={{ fontSize: "12px", textAlign: "center" }}>
                             <b>Authorised Signatory</b>
                         </p>
