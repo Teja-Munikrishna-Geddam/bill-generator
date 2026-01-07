@@ -21,6 +21,9 @@ const COLS = {
     amount: "15%"
 };
 
+const isPurchaseOrder =
+    invoice.invoiceType === INVOICE_TYPES.PURCHASE;
+
 
 const styles = StyleSheet.create({
     page: {
@@ -341,19 +344,22 @@ export default function InvoicePDF({ invoice }) {
                     <Text>Authorised Signatory</Text>
                 </View>
 
-                <View style={{ marginTop: 10, lineHeight: 1.2 }}>
-                    <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
-                    <Text>1. 100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</Text>
-                    <Text>2. 18% GST APPLICABLE.</Text>
-                    <Text>3. ONCE ORDER IS PLACED & PAYMENT IS MADE, ORDER WILL NOT BE MODIFIED / CANCELLED.</Text>
-                    <Text>4. 1 YEAR WARRANTY ON MANUFACTURING DEFECTS.</Text>
-                    <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
-                    <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8-10 WORKING DAYS OR AT THE EARLIEST, SUBJECT TO RECEIPT OF PAYMENT & AVAILABILITY OF MATERIAL.</Text>
-                </View>
-                {invoice.invoiceType !== INVOICE_TYPES.PURCHASE && (
+                {!isPurchaseOrder && (
+                    <View style={{ marginTop: 10, lineHeight: 1.2 }}>
+                        <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
+                        <Text>1. 100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</Text>
+                        <Text>2. 18% GST APPLICABLE.</Text>
+                        <Text>3. ONCE ORDER IS PLACED & PAYMENT IS MADE, ORDER WILL NOT BE MODIFIED / CANCELLED.</Text>
+                        <Text>4. 1 YEAR WARRANTY ON MANUFACTURING DEFECTS.</Text>
+                        <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
+                        <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8–10 WORKING DAYS.</Text>
+                    </View>
+                )}
+
+                {!isPurchaseOrder && (
                     <View
                         minPresenceAhead={50}
-                        style={{ marginTop: 20, border: "1 solid #000", paddingTop: 5 }}
+                        style={{ marginTop: 20, border: "1 solid #000", padding: 5 }}
                     >
                         <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
                         <Text>Bank Name: Bank of Baroda</Text>
