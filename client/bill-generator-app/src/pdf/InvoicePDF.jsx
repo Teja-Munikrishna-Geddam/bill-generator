@@ -351,7 +351,7 @@ export default function InvoicePDF({ invoice }) {
                 </View>
                 {invoice.invoiceType !== INVOICE_TYPES.PURCHASE && (
                     <View
-                        minPresenceAhead={80}
+                        minPresenceAhead={50}
                         style={{ marginTop: 20, border: "1 solid #000", paddingTop: 5 }}
                     >
                         <Text style={{ fontWeight: "bold" }}>Bank Details</Text>

@@ -41,7 +41,7 @@ export default function InvoiceLayout({
 
                 <div className="dealer-center">
                     <img
-                        src="/dealer_logo.png"
+                        src="client\bill-generator-app\src\assets\dealer_logo.png"
                         alt="Dealer Logo"
                         className="dealer-logo"
                     />
@@ -293,7 +293,7 @@ export default function InvoiceLayout({
                         <p style={{ fontSize: "12px", textAlign: "center" }}>
                             <b>For SNJ Safety Solutions</b>
                         </p>
-                        <img src="/safety_stamp.png" alt="Stamp" />
+                        <img src="client\bill-generator-app\src\assets\safety_stamp.png" alt="Stamp" />
                         <p style={{ fontSize: "12px", textAlign: "center" }}>
                             <b>Authorised Signatory</b>
                         </p>
