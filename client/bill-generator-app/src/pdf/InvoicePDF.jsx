@@ -96,6 +96,17 @@ const styles = StyleSheet.create({
         paddingVertical: 3
     },
 
+    headerRow: {
+        flexDirection: "row",
+        borderTop: "1 solid #000",
+        borderBottom: "1 solid #000",
+        borderLeft: "1 solid #000",
+        borderRight: "1 solid #000",
+        backgroundColor: "#f2f2f2",
+        fontWeight: "bold",
+        paddingVertical: 4
+    },
+
     row: {
         flexDirection: "row",
         borderLeft: "1 solid #000",
@@ -104,13 +115,40 @@ const styles = StyleSheet.create({
         paddingVertical: 3
     },
 
-    cellSl: { width: "5%", textAlign: "center" },
-    cellDesc: { width: "40%", paddingRight: 4 },
-    cellModel: { width: "15%" },
-    cellUnit: { width: "8%", textAlign: "center" },
-    cellQty: { width: "7%", textAlign: "center" },
-    cellRate: { width: "10%", textAlign: "right" },
-    cellAmt: { width: "15%", textAlign: "right" },
+    cellSl: {
+        width: "3%",
+        textAlign: "center"
+    },
+
+    cellDesc: {
+        width: "40%",
+        paddingRight: 4
+    },
+
+    cellModel: {
+        width: "15%",
+        textAlign: "left"
+    },
+
+    cellUnit: {
+        width: "10%",
+        textAlign: "center"
+    },
+
+    cellQty: {
+        width: "7%",
+        textAlign: "center"
+    },
+
+    cellRate: {
+        width: "10%",
+        textAlign: "right"
+    },
+
+    cellAmount: {
+        width: "15%",
+        textAlign: "right"
+    },
 
     totalsRow: {
         flexDirection: "row",
@@ -235,11 +273,12 @@ export default function InvoicePDF({ invoice }) {
                     <Text style={styles.cellSl}>Sl</Text>
                     <Text style={styles.cellDesc}>Description</Text>
                     <Text style={styles.cellModel}>Model</Text>
-                    <Text style={styles.cell}>Unit</Text>
-                    <Text style={styles.cell}>Qty</Text>
-                    <Text style={styles.cell}>Rate</Text>
+                    <Text style={styles.cellUnit}>Unit</Text>
+                    <Text style={styles.cellQty}>Qty</Text>
+                    <Text style={styles.cellRate}>Rate</Text>
                     <Text style={styles.cellAmount}>Amount</Text>
                 </View>
+
 
                 {/* TABLE ROWS — NEVER SPLIT */}
                 {invoice.items.map((item, i) => (
@@ -258,15 +297,15 @@ export default function InvoicePDF({ invoice }) {
 
                 {/* TOTALS */}
                 <View style={{ marginTop: 10, alignItems: "flex-end" }}>
-                    <Text><b>Subtotal :</b> ₹{invoice.subtotal.toFixed(2)}</Text>
-                    <Text><b>GST (18%) :</b> ₹{invoice.gst.toFixed(2)}</Text>
-                    <Text><b>Grand Total :</b> ₹{invoice.grandTotal.toFixed(2)}</Text>
+                    <Text>Subtotal : ₹{invoice.subtotal.toFixed(2)}</Text>
+                    <Text>GST (18%) : ₹{invoice.gst.toFixed(2)}</Text>
+                    <Text>Grand Total : ₹{invoice.grandTotal.toFixed(2)}</Text>
                 </View>
 
                 {/* AMOUNT IN WORDS */}
                 <View style={styles.amountWords}>
                     <Text>
-                        <b>Amount in Words :</b> {numberToWords(invoice.grandTotal)}
+                        Amount in Words : {numberToWords(invoice.grandTotal)}
                     </Text>
                 </View>
 
@@ -288,7 +327,7 @@ export default function InvoicePDF({ invoice }) {
                 </View>
                 {invoice.invoiceType !== INVOICE_TYPES.PURCHASE && (
                     <View
-                        minPresenceAhead={120}
+                        minPresenceAhead={80}
                         style={{ marginTop: 20, border: "1 solid #000", paddingTop: 5 }}
                     >
                         <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
@@ -298,8 +337,6 @@ export default function InvoicePDF({ invoice }) {
                         <Text>IFSC: BARB0VASHIX</Text>
                     </View>
                 )}
-
-
             </Page>
         </Document>
     );
