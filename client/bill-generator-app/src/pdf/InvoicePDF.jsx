@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
     },
 
     bankBox: {
+        marginTop: 30,
         width: "35%",
         border: "1 solid #000",
         padding: 5,
