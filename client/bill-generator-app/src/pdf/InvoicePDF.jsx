@@ -11,6 +11,15 @@ import dealerLogo from "../assets/dealer_logo.png";
 import stampImg from "../assets/safety_stamp.png";
 import { INVOICE_TYPES } from "../components/invoiceTypes";
 
+const COLS = {
+    sl: "5%",
+    desc: "40%",
+    model: "15%",
+    unit: "8%",
+    qty: "7%",
+    rate: "10%",
+    amount: "15%"
+};
 
 
 const styles = StyleSheet.create({
@@ -107,7 +116,7 @@ const styles = StyleSheet.create({
         paddingVertical: 4
     },
 
-    row: {
+    tableRow: {
         flexDirection: "row",
         borderLeft: "1 solid #000",
         borderRight: "1 solid #000",
@@ -269,30 +278,44 @@ export default function InvoicePDF({ invoice }) {
 
 
                 {/* TABLE HEADER — AUTO REPEATS */}
-                <View style={styles.headerRow} fixed>
-                    <Text style={styles.cellSl}>Sl</Text>
-                    <Text style={styles.cellDesc}>Description</Text>
-                    <Text style={styles.cellModel}>Model</Text>
-                    <Text style={styles.cellUnit}>Unit</Text>
-                    <Text style={styles.cellQty}>Qty</Text>
-                    <Text style={styles.cellRate}>Rate</Text>
-                    <Text style={styles.cellAmount}>Amount</Text>
-                </View>
+                {shouldRepeatHeader ? (
+                    <View style={styles.tableHeader} fixed>
+                        <Text style={styles.cellSl}>Sl</Text>
+                        <Text style={styles.cellDesc}>Description</Text>
+                        <Text style={styles.cellModel}>Model</Text>
+                        <Text style={styles.cellUnit}>Unit</Text>
+                        <Text style={styles.cellQty}>Qty</Text>
+                        <Text style={styles.cellRate}>Rate</Text>
+                        <Text style={styles.cellAmount}>Amount</Text>
+                    </View>
+                ) : (
+                    <View style={styles.tableHeader}>
+                        <Text style={styles.cellSl}>Sl</Text>
+                        <Text style={styles.cellDesc}>Description</Text>
+                        <Text style={styles.cellModel}>Model</Text>
+                        <Text style={styles.cellUnit}>Unit</Text>
+                        <Text style={styles.cellQty}>Qty</Text>
+                        <Text style={styles.cellRate}>Rate</Text>
+                        <Text style={styles.cellAmount}>Amount</Text>
+                    </View>
+                )}
+
 
 
                 {/* TABLE ROWS — NEVER SPLIT */}
                 {invoice.items.map((item, i) => (
-                    <View key={i} style={styles.row} wrap={false}>
+                    <View key={i} style={styles.tableRow} wrap={false}>
                         <Text style={styles.cellSl}>{i + 1}</Text>
                         <Text style={styles.cellDesc}>{item.description}</Text>
                         <Text style={styles.cellModel}>{item.model}</Text>
-                        <Text style={styles.cell}>{item.unit}</Text>
-                        <Text style={styles.cell}>{item.quantity}</Text>
-                        <Text style={styles.cell}>{item.rate}</Text>
+                        <Text style={styles.cellUnit}>{item.unit}</Text>
+                        <Text style={styles.cellQty}>{item.quantity}</Text>
+                        <Text style={styles.cellRate}>{item.rate}</Text>
                         <Text style={styles.cellAmount}>
                             ₹{item.amount.toFixed(2)}
                         </Text>
                     </View>
+
                 ))}
 
                 {/* TOTALS */}
