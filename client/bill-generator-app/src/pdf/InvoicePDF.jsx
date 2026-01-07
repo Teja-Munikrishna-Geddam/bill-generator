@@ -15,59 +15,158 @@ import { INVOICE_TYPES } from "../components/invoiceTypes";
 
 const styles = StyleSheet.create({
     page: {
-        padding: 20,
-        fontSize: 10,
-        fontFamily: "Helvetica"
+        padding: 18,
+        fontSize: 9,
+        fontFamily: "Helvetica",
+        lineHeight: 1.4
     },
 
+    /* ===== HEADER ===== */
+    center: {
+        alignItems: "center",
+        textAlign: "center"
+    },
+
+    dealerLogo: {
+        width: 180,
+        height: 120,
+        marginBottom: 4
+    },
+
+    dealerServices: {
+        fontSize: 11,
+        fontWeight: "bold",
+        color: "#c40000",
+        marginVertical: 4
+    },
+
+    gstin: {
+        fontSize: 10,
+        marginBottom: 4
+    },
+
+    addressBar: {
+        backgroundColor: "#003399",
+        color: "#ffffff",
+        padding: 6,
+        marginBottom: 10
+    },
+
+    /* ===== TITLE ===== */
     title: {
+        fontSize: 13,
+        fontWeight: "bold",
         textAlign: "center",
-        fontSize: 14,
-        marginBottom: 10,
-        fontWeight: "bold"
+        textDecoration: "underline",
+        marginBottom: 8
+    },
+
+    metaBar: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        border: "1 solid #000",
+        padding: 5,
+        marginBottom: 8
+    },
+
+    /* ===== ADDRESS BLOCK ===== */
+    addressRow: {
+        flexDirection: "row",
+        border: "1 solid #000",
+        marginBottom: 8
+    },
+
+    addressBox: {
+        width: "50%",
+        padding: 6,
+        borderRight: "1 solid #000"
+    },
+
+    addressTitle: {
+        fontWeight: "bold",
+        marginBottom: 2
+    },
+
+    /* ===== TABLE ===== */
+    tableHeader: {
+        flexDirection: "row",
+        border: "1 solid #000",
+        fontWeight: "bold",
+        backgroundColor: "#f2f2f2",
+        paddingVertical: 3
     },
 
     row: {
         flexDirection: "row",
+        borderLeft: "1 solid #000",
+        borderRight: "1 solid #000",
         borderBottom: "1 solid #000",
-        paddingVertical: 4
-    },
-
-    headerRow: {
-        flexDirection: "row",
-        borderBottom: "1 solid #000",
-        fontWeight: "bold",
-        backgroundColor: "#f2f2f2"
+        paddingVertical: 3
     },
 
     cellSl: { width: "5%", textAlign: "center" },
-    cellDesc: { width: "40%" },
-    cellModel: { width: "20%" },
-    cell: { width: "10%", textAlign: "center" },
-    cellAmount: { width: "12%", textAlign: "right" },
+    cellDesc: { width: "40%", paddingRight: 4 },
+    cellModel: { width: "15%" },
+    cellUnit: { width: "8%", textAlign: "center" },
+    cellQty: { width: "7%", textAlign: "center" },
+    cellRate: { width: "10%", textAlign: "right" },
+    cellAmt: { width: "15%", textAlign: "right" },
+
+    totalsRow: {
+        flexDirection: "row",
+        border: "1 solid #000"
+    },
+
+    totalsLabel: {
+        width: "85%",
+        textAlign: "right",
+        padding: 4,
+        fontWeight: "bold"
+    },
+
+    totalsValue: {
+        width: "15%",
+        textAlign: "right",
+        padding: 4
+    },
 
     amountWords: {
-        marginTop: 10,
         border: "1 solid #000",
-        padding: 5
+        padding: 6,
+        marginTop: 6
     },
 
+    /* ===== SIGNATURE ===== */
     signature: {
-        marginTop: 40,
         alignItems: "flex-end",
-        fontSize: 10
+        marginTop: 30
     },
-    header: {
-        textAlign: "center",
-        marginBottom: 10
+
+    stamp: {
+        width: 80,
+        marginVertical: 6
     },
-    subtitle: {
-        fontSize: 9
+
+    /* ===== FOOTER ===== */
+    footerRow: {
+        flexDirection: "row",
+        marginTop: 10
     },
-    dealerLogo: {
-        marginBottom: 6
+
+    terms: {
+        width: "65%",
+        fontSize: 8,
+        lineHeight: 1.4
+    },
+
+    bankBox: {
+        width: "35%",
+        border: "1 solid #000",
+        padding: 5,
+        fontSize: 8
     }
 });
+
 
 export default function InvoicePDF({ invoice }) {
     return (
