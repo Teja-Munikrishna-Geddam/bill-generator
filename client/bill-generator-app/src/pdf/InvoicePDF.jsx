@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
 
 
 export default function InvoicePDF({ invoice }) {
+    const shouldRepeatHeader = invoice.items?.length >= 8;
     return (
         <Document>
             <Page size="A4" style={styles.page} wrap>
