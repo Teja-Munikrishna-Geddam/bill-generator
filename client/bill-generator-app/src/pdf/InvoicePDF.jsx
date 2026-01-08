@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     textDecoration: "underline",
-    marginBottom: 8
+    marginVertical: 8
   },
 
   addressBar: {
@@ -150,12 +150,12 @@ export default function InvoicePDF({ invoice }) {
     <Document>
       <Page size="A4" style={styles.page} wrap>
 
-        {/* ===== LOGO ===== */}
+        {/* LOGO */}
         <View style={styles.center}>
           <Image src={dealerLogo} style={{ width: 140, height: 80 }} />
         </View>
 
-        {/* ===== COMPANY DETAILS ===== */}
+        {/* COMPANY DETAILS */}
         <View style={styles.center}>
           <Text style={{ fontSize: 12, fontWeight: "bold" }}>
             SNJ SAFETY SOLUTIONS
@@ -167,18 +167,16 @@ export default function InvoicePDF({ invoice }) {
           <Text>GSTN: 27ACPPR9449D1ZY</Text>
         </View>
 
-        {/* ===== ADDRESS BAR ===== */}
+        {/* ADDRESS BAR */}
         <View style={styles.addressBar}>
           <Text>
             Office No. 01, Plot No. 250, Sector-11, Vashi,
             Navi Mumbai – 400703
           </Text>
-          <Text>
-            SNJ Safety Solutions – Complete Fire Fighting Solutions:
-          </Text>
+          <Text>SNJ Safety Solutions – Complete Fire Fighting Solutions</Text>
           <Link
             src="https://snjsafetysolutions.in"
-            style={{ color: "#ffffff"}}
+            style={{ color: "#ffffff", textDecoration: "underline" }}
           >
             snjsafetysolutions.in
           </Link>
@@ -188,34 +186,35 @@ export default function InvoicePDF({ invoice }) {
           </Text>
         </View>
 
-        {/* ===== TITLE ===== */}
+        {/* TITLE */}
         <Text style={styles.title}>
           {invoice.invoiceType?.toUpperCase()}
         </Text>
 
-        {/* ===== META ===== */}
+        {/* META */}
         <View style={styles.metaBar}>
           <Text>Invoice No: {invoice.invoiceNo}</Text>
           <Text>Date: {invoice.invoiceDate}</Text>
         </View>
 
-        {/* ===== ADDRESS ===== */}
+        {/* BILL / SHIP */}
         <View style={{ flexDirection: "row", marginBottom: 10 }}>
           <View style={{ width: "50%" }}>
-            <Text><b>Bill To</b></Text>
+            <Text style={{ fontWeight: "bold" }}>Bill To</Text>
             <Text>{invoice.billTo.name}</Text>
             <Text>{invoice.billTo.address}</Text>
             <Text>GSTIN: {invoice.billTo.gstin}</Text>
             <Text>Contact: {invoice.billTo.contact}</Text>
           </View>
+
           <View style={{ width: "50%" }}>
-            <Text><b>Ship To</b></Text>
+            <Text style={{ fontWeight: "bold" }}>Ship To</Text>
             <Text>{invoice.shipTo.name}</Text>
             <Text>{invoice.shipTo.address}</Text>
           </View>
         </View>
 
-        {/* ===== TABLE HEADER ===== */}
+        {/* TABLE HEADER */}
         <View style={styles.tableHeader} fixed={shouldRepeatHeader}>
           <Text style={styles.cellSl}>Sl</Text>
           <Text style={styles.cellDesc}>Description</Text>
@@ -226,7 +225,7 @@ export default function InvoicePDF({ invoice }) {
           <Text style={styles.cellAmount}>Amount</Text>
         </View>
 
-        {/* ===== TABLE ROWS ===== */}
+        {/* TABLE ROWS */}
         {invoice.items.map((item, i) => (
           <View key={i} style={styles.tableRow} wrap={false}>
             <Text style={styles.cellSl}>{i + 1}</Text>
@@ -238,6 +237,59 @@ export default function InvoicePDF({ invoice }) {
             <Text style={styles.cellAmount}>
               ₹{item.amount.toFixed(2)}
             </Text>
+          </View>
+        ))}
+
+        {/* TOTALS */}
+        <View style={{ marginTop: 10, alignItems: "flex-end" }}>
+          <Text>Subtotal : ₹{invoice.subtotal.toFixed(2)}</Text>
+          <Text>GST (18%) : ₹{invoice.gst.toFixed(2)}</Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Grand Total : ₹{invoice.grandTotal.toFixed(2)}
+          </Text>
+        </View>
+
+        {/* AMOUNT IN WORDS */}
+        <View style={styles.amountWords}>
+          <Text>
+            Amount in Words : {numberToWords(invoice.grandTotal)}
+          </Text>
+        </View>
+
+        {/* SIGNATURE */}
+        <View style={styles.signature} minPresenceAhead={150}>
+          <Text>For SNJ Safety Solutions</Text>
+          <Image src={stampImg} style={{ width: 80, marginTop: 8 }} />
+          <Text>Authorised Signatory</Text>
+        </View>
+
+        {/* TERMS */}
+        {!isPurchaseOrder && (
+          <View style={{ marginTop: 10 }}>
+            <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
+            <Text>1. 100% advance payment with purchase order.</Text>
+            <Text>2. 18% GST applicable.</Text>
+            <Text>3. Order once placed cannot be cancelled.</Text>
+            <Text>4. 1 year manufacturing warranty.</Text>
+            <Text>5. Transportation & packing extra.</Text>
+          </View>
+        )}
+
+        {/* BANK DETAILS */}
+        {!isPurchaseOrder && (
+          <View style={styles.bankBox}>
+            <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
+            <Text>Bank Name: Bank of Baroda</Text>
+            <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
+            <Text>Account No: 10430200001748</Text>
+            <Text>IFSC: BARB0VASHIX</Text>
+          </View>
+        )}
+
+      </Page>
+    </Document>
+  );
+        }            </Text>
           </View>
         ))}
 
