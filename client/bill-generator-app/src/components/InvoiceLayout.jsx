@@ -63,7 +63,21 @@ export default function InvoiceLayout({
                         <strong>Address :</strong> Office No. 01, Plot No. 250,
                         Bharat House, Sector-11, Vashi, Navi Mumbai – 400703
                     </p>
-                    <p>SNJ Safety Solutions – Complete Fire Fighting Solutions: https://share.google/ZKagZNeuCjSIelIVS</p>
+                    <p>
+    <strong>Website :</strong>{" "}
+    <a
+      href="https://snjsafetysolutions.in"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        color: "#ffffff",
+        textDecoration: "underline",
+        fontWeight: "bold"
+      }}
+    >
+      snjsafetysolutions.in
+    </a>
+  </p>
                     <p>
                         <strong>Email :</strong> snj.safetysolutions18@gmail.com
                     </p>
