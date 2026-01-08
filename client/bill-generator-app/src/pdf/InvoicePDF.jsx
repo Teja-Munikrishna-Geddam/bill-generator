@@ -245,9 +245,15 @@ export default function InvoicePDF({ invoice }) {
                 <View style={{ marginBottom: 10, backgroundColor: '#003399', padding: 5, color: 'white', fontWeight: 'bold' }}>
                     <Text style={{ fontSize: 9 }}>
                         Office No. 01, Plot No. 250, Sector-11, Vashi,
-                        Navi Mumbai – 400703 
-                        website:snjsafetysolutions.in
+                        Navi Mumbai – 400703
                     </Text>
+                    <Link
+    src="https://snjsafetysolutions.in"
+    style={{ color: "#ffffff", textDecoration: "underline" }}
+  >
+    snjsafetysolutions.in
+  </Link>
+</View>
                     <Text style={{ fontSize: 9 }}>
                         Contact Person: Nagesh
                         Contact NO: +91 9930930880/+91 9082162344
