@@ -7,24 +7,11 @@ import {
   Image,
   Link
 } from "@react-pdf/renderer";
-
 import { numberToWords } from "../utils/numberToWords";
 import dealerLogo from "../assets/dealer_logo.png";
 import stampImg from "../assets/safety_stamp.png";
 import { INVOICE_TYPES } from "../components/invoiceTypes";
 
-/* ================= COLUMN WIDTHS ================= */
-const COLS = {
-  sl: "5%",
-  desc: "40%",
-  model: "15%",
-  unit: "8%",
-  qty: "7%",
-  rate: "10%",
-  amount: "15%"
-};
-
-/* ================= STYLES ================= */
 const styles = StyleSheet.create({
   page: {
     padding: 18,
@@ -38,19 +25,36 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
 
-  title: {
-    fontSize: 13,
-    fontWeight: "bold",
-    textAlign: "center",
-    textDecoration: "underline",
-    marginVertical: 8
+  logo: {
+    width: 140,
+    height: 80,
+    marginBottom: 6
+  },
+
+  companyName: {
+    fontSize: 12,
+    fontWeight: "bold"
+  },
+
+  services: {
+    fontSize: 9,
+    color: "red",
+    marginVertical: 2
   },
 
   addressBar: {
     backgroundColor: "#003399",
     color: "#ffffff",
     padding: 6,
-    marginBottom: 10
+    marginBottom: 8
+  },
+
+  title: {
+    fontSize: 13,
+    fontWeight: "bold",
+    textAlign: "center",
+    textDecoration: "underline",
+    marginVertical: 8
   },
 
   metaBar: {
@@ -61,13 +65,29 @@ const styles = StyleSheet.create({
     marginBottom: 8
   },
 
-  /* ===== TABLE ===== */
+  addressRow: {
+    flexDirection: "row",
+    border: "1 solid #000",
+    marginBottom: 8
+  },
+
+  addressBox: {
+    width: "50%",
+    padding: 6,
+    borderRight: "1 solid #000"
+  },
+
+  addressTitle: {
+    fontWeight: "bold",
+    marginBottom: 2
+  },
+
   tableHeader: {
     flexDirection: "row",
     border: "1 solid #000",
     backgroundColor: "#f2f2f2",
     fontWeight: "bold",
-    paddingVertical: 4
+    paddingVertical: 3
   },
 
   tableRow: {
@@ -78,46 +98,17 @@ const styles = StyleSheet.create({
     paddingVertical: 3
   },
 
-  cellSl: {
-    width: COLS.sl,
-    textAlign: "center",
-    borderRight: "1 solid #000"
-  },
+  cellSl: { width: "5%", textAlign: "center" },
+  cellDesc: { width: "40%" },
+  cellModel: { width: "15%" },
+  cellUnit: { width: "8%", textAlign: "center" },
+  cellQty: { width: "7%", textAlign: "center" },
+  cellRate: { width: "10%", textAlign: "right" },
+  cellAmount: { width: "15%", textAlign: "right" },
 
-  cellDesc: {
-    width: COLS.desc,
-    paddingHorizontal: 4,
-    borderRight: "1 solid #000"
-  },
-
-  cellModel: {
-    width: COLS.model,
-    borderRight: "1 solid #000"
-  },
-
-  cellUnit: {
-    width: COLS.unit,
-    textAlign: "center",
-    borderRight: "1 solid #000"
-  },
-
-  cellQty: {
-    width: COLS.qty,
-    textAlign: "center",
-    borderRight: "1 solid #000"
-  },
-
-  cellRate: {
-    width: COLS.rate,
-    textAlign: "right",
-    paddingRight: 4,
-    borderRight: "1 solid #000"
-  },
-
-  cellAmount: {
-    width: COLS.amount,
-    textAlign: "right",
-    paddingRight: 4
+  totals: {
+    marginTop: 8,
+    alignItems: "flex-end"
   },
 
   amountWords: {
@@ -127,24 +118,28 @@ const styles = StyleSheet.create({
   },
 
   signature: {
-    alignItems: "flex-end",
-    marginTop: 30
+    marginTop: 30,
+    alignItems: "flex-end"
+  },
+
+  stamp: {
+    width: 80,
+    marginVertical: 6
   },
 
   bankBox: {
-    marginTop: 20,
+    marginTop: 10,
     border: "1 solid #000",
-    padding: 6,
+    padding: 5,
     fontSize: 8
   }
 });
 
-/* ================= COMPONENT ================= */
 export default function InvoicePDF({ invoice }) {
   const isPurchaseOrder =
     invoice.invoiceType === INVOICE_TYPES.PURCHASE;
 
-  const shouldRepeatHeader = invoice.items?.length >= 8;
+  const repeatHeader = invoice.items.length >= 8;
 
   return (
     <Document>
@@ -152,17 +147,14 @@ export default function InvoicePDF({ invoice }) {
 
         {/* LOGO */}
         <View style={styles.center}>
-          <Image src={dealerLogo} style={{ width: 140, height: 80 }} />
+          <Image src={dealerLogo} style={styles.logo} />
         </View>
 
-        {/* COMPANY DETAILS */}
+        {/* COMPANY INFO */}
         <View style={styles.center}>
-          <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-            SNJ SAFETY SOLUTIONS
-          </Text>
-          <Text style={{ color: "red", fontWeight: "bold" }}>
-            Fire Alarm System, Fire Hydrant System,
-            Fire Fighting Equipment & CCTV
+          <Text style={styles.companyName}>SNJ SAFETY SOLUTIONS</Text>
+          <Text style={styles.services}>
+            Fire Alarm System, Fire Hydrant System, Fire Fighting Equipment and CCTV
           </Text>
           <Text>GSTN: 27ACPPR9449D1ZY</Text>
         </View>
@@ -170,10 +162,8 @@ export default function InvoicePDF({ invoice }) {
         {/* ADDRESS BAR */}
         <View style={styles.addressBar}>
           <Text>
-            Office No. 01, Plot No. 250, Sector-11, Vashi,
-            Navi Mumbai – 400703
+            Office No. 01, Plot No. 250, Sector-11, Vashi, Navi Mumbai - 400703
           </Text>
-          <Text>SNJ Safety Solutions – Complete Fire Fighting Solutions</Text>
           <Link
             src="https://snjsafetysolutions.in"
             style={{ color: "#ffffff", textDecoration: "underline" }}
@@ -181,14 +171,16 @@ export default function InvoicePDF({ invoice }) {
             snjsafetysolutions.in
           </Link>
           <Text>
-            Contact: +91 9930930880 / +91 9082162344 |
+            Contact: +91 9930930880 / +91 9082162344
+          </Text>
+          <Text>
             Email: snj.safetysolutions18@gmail.com
           </Text>
         </View>
 
         {/* TITLE */}
         <Text style={styles.title}>
-          {invoice.invoiceType?.toUpperCase()}
+          {invoice.invoiceType.toUpperCase()}
         </Text>
 
         {/* META */}
@@ -197,25 +189,25 @@ export default function InvoicePDF({ invoice }) {
           <Text>Date: {invoice.invoiceDate}</Text>
         </View>
 
-        {/* BILL / SHIP */}
-        <View style={{ flexDirection: "row", marginBottom: 10 }}>
-          <View style={{ width: "50%" }}>
-            <Text style={{ fontWeight: "bold" }}>Bill To</Text>
+        {/* ADDRESSES */}
+        <View style={styles.addressRow}>
+          <View style={styles.addressBox}>
+            <Text style={styles.addressTitle}>Bill To</Text>
             <Text>{invoice.billTo.name}</Text>
             <Text>{invoice.billTo.address}</Text>
             <Text>GSTIN: {invoice.billTo.gstin}</Text>
             <Text>Contact: {invoice.billTo.contact}</Text>
           </View>
 
-          <View style={{ width: "50%" }}>
-            <Text style={{ fontWeight: "bold" }}>Ship To</Text>
+          <View style={[styles.addressBox, { borderRight: 0 }]}>
+            <Text style={styles.addressTitle}>Ship To</Text>
             <Text>{invoice.shipTo.name}</Text>
             <Text>{invoice.shipTo.address}</Text>
           </View>
         </View>
 
         {/* TABLE HEADER */}
-        <View style={styles.tableHeader} fixed={shouldRepeatHeader}>
+        <View style={styles.tableHeader} fixed={repeatHeader}>
           <Text style={styles.cellSl}>Sl</Text>
           <Text style={styles.cellDesc}>Description</Text>
           <Text style={styles.cellModel}>Model</Text>
@@ -235,139 +227,57 @@ export default function InvoicePDF({ invoice }) {
             <Text style={styles.cellQty}>{item.quantity}</Text>
             <Text style={styles.cellRate}>{item.rate}</Text>
             <Text style={styles.cellAmount}>
-              ₹{item.amount.toFixed(2)}
+              Rs. {item.amount.toFixed(2)}
             </Text>
           </View>
         ))}
 
         {/* TOTALS */}
-        <View style={{ marginTop: 10, alignItems: "flex-end" }}>
-          <Text>Subtotal : ₹{invoice.subtotal.toFixed(2)}</Text>
-          <Text>GST (18%) : ₹{invoice.gst.toFixed(2)}</Text>
+        <View style={styles.totals}>
+          <Text>Subtotal: Rs. {invoice.subtotal.toFixed(2)}</Text>
+          <Text>GST (18%): Rs. {invoice.gst.toFixed(2)}</Text>
           <Text style={{ fontWeight: "bold" }}>
-            Grand Total : ₹{invoice.grandTotal.toFixed(2)}
+            Grand Total: Rs. {invoice.grandTotal.toFixed(2)}
           </Text>
         </View>
 
         {/* AMOUNT IN WORDS */}
         <View style={styles.amountWords}>
           <Text>
-            Amount in Words : {numberToWords(invoice.grandTotal)}
+            Amount in Words: {numberToWords(invoice.grandTotal)}
           </Text>
         </View>
 
         {/* SIGNATURE */}
-        <View style={styles.signature} minPresenceAhead={150}>
+        <View style={styles.signature} minPresenceAhead={120}>
           <Text>For SNJ Safety Solutions</Text>
-          <Image src={stampImg} style={{ width: 80, marginTop: 8 }} />
+          <Image src={stampImg} style={styles.stamp} />
           <Text>Authorised Signatory</Text>
         </View>
 
-        {/* TERMS */}
+        {/* TERMS & BANK (NOT FOR PURCHASE ORDER) */}
         {!isPurchaseOrder && (
-          <View style={{ marginTop: 10 }}>
-            <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
-            <Text>1. 100% advance payment with purchase order.</Text>
-            <Text>2. 18% GST applicable.</Text>
-            <Text>3. Order once placed cannot be cancelled.</Text>
-            <Text>4. 1 year manufacturing warranty.</Text>
-            <Text>5. Transportation & packing extra.</Text>
-          </View>
-        )}
+          <View>
+            <View style={{ marginTop: 10 }}>
+              <Text style={{ fontWeight: "bold" }}>Terms and Conditions</Text>
+              <Text>1. 100 percent advance payment.</Text>
+              <Text>2. 18 percent GST applicable.</Text>
+              <Text>3. Order once placed cannot be cancelled.</Text>
+              <Text>4. One year manufacturing warranty.</Text>
+              <Text>5. Transportation and packing extra.</Text>
+            </View>
 
-        {/* BANK DETAILS */}
-        {!isPurchaseOrder && (
-          <View style={styles.bankBox}>
-            <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
-            <Text>Bank Name: Bank of Baroda</Text>
-            <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
-            <Text>Account No: 10430200001748</Text>
-            <Text>IFSC: BARB0VASHIX</Text>
+            <View style={styles.bankBox}>
+              <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
+              <Text>Bank Name: Bank of Baroda</Text>
+              <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
+              <Text>Account No: 10430200001748</Text>
+              <Text>IFSC: BARB0VASHIX</Text>
+            </View>
           </View>
         )}
 
       </Page>
     </Document>
   );
-        }            </Text>
-          </View>
-        ))}
-
-        {/* ===== TOTALS ===== */}
-        <View style={{ marginTop: 10, alignItems: "flex-end" }}>
-          <Text>Subtotal : ₹{invoice.subtotal.toFixed(2)}</Text>
-          <Text>GST (18%) : ₹{invoice.gst.toFixed(2)}</Text>
-          <Text><b>Grand Total : ₹{invoice.grandTotal.toFixed(2)}</b></Text>
-        </View>
-
-        {/* ===== AMOUNT IN WORDS ===== */}
-        <View style={styles.amountWords}>
-          <Text>
-            Amount in Words : {numberToWords(invoice.grandTotal)}
-          </Text>
-        </View>
-
-        {/* ===== SIGNATURE ===== */}
-        <View style={styles.signature} minPresenceAhead={150}>
-          <Text>For SNJ Safety Solutions</Text>
-          <Image src={stampImg} style={{ width: 80, marginTop: 8 }} />
-          <Text>Authorised Signatory</Text>
-        </View>
-
-        {/* ===== TERMS ===== */}
-        {!isPurchaseOrder && (
-          <View style={{ marginTop: 10 }}>
-            <Text><b>Terms & Conditions</b></Text>
-            <Text>1. 100% advance payment with purchase order.</Text>
-            <Text>2. 18% GST applicable.</Text>
-            <Text>3. Order once placed cannot be cancelled.</Text>
-            <Text>4. 1 year manufacturing warranty.</Text>
-            <Text>5. Transportation & packing extra.</Text>
-          </View>
-        )}
-
-        {/* ===== BANK DETAILS ===== */}
-        {!isPurchaseOrder && (
-          <View style={styles.bankBox}>
-            <Text><b>Bank Details</b></Text>
-            <Text>Bank Name: Bank of Baroda</Text>
-            <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
-            <Text>Account No: 10430200001748</Text>
-            <Text>IFSC: BARB0VASHIX</Text>
-          </View>
-        )}
-
-      </Page>
-    </Document>
-  );
-              }            <Text>Authorised Signatory</Text>
-                </View>
-
-                {!isPurchaseOrder && (
-                    <View style={{ marginTop: 10, lineHeight: 1.2 }}>
-                        <Text style={{ fontWeight: "bold" }}>Terms & Conditions</Text>
-                        <Text>1. 100 % ADVANCE PAYMENT ALONG WITH PURCHASE ORDER.</Text>
-                        <Text>2. 18% GST APPLICABLE.</Text>
-                        <Text>3. ONCE ORDER IS PLACED & PAYMENT IS MADE, ORDER WILL NOT BE MODIFIED / CANCELLED.</Text>
-                        <Text>4. 1 YEAR WARRANTY ON MANUFACTURING DEFECTS.</Text>
-                        <Text>5. TRANSPORTATION & PACKING CHARGES WILL BE EXTRA.</Text>
-                        <Text>6. DELIVERY OF MATERIAL WILL BE WITHIN 8–10 WORKING DAYS.</Text>
-                    </View>
-                )}
-
-                {!isPurchaseOrder && (
-                    <View
-                        minPresenceAhead={50}
-                        style={{ marginTop: 20, border: "1 solid #000", padding: 5 }}
-                    >
-                        <Text style={{ fontWeight: "bold" }}>Bank Details</Text>
-                        <Text>Bank Name: Bank of Baroda</Text>
-                        <Text>Account Name: SNJ SAFETY SOLUTIONS</Text>
-                        <Text>Account No: 10430200001748</Text>
-                        <Text>IFSC: BARB0VASHIX</Text>
-                    </View>
-                )}
-            </Page>
-        </Document>
-    );
-}
+      }
