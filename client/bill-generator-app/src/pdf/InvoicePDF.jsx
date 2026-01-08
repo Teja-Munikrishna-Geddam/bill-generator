@@ -246,7 +246,7 @@ export default function InvoicePDF({ invoice }) {
                     <Text style={{ fontSize: 9 }}>
                         Office No. 01, Plot No. 250, Sector-11, Vashi,
                         Navi Mumbai – 400703 
-                        SNJ Safety Solutions – Complete Fire Fighting Solutions : https://share.google/ZKagZNeuCjSIelIVS
+                        website:snjsafetysolutions.in
                     </Text>
                     <Text style={{ fontSize: 9 }}>
                         Contact Person: Nagesh
